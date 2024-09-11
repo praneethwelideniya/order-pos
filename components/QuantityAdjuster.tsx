@@ -30,7 +30,7 @@ const QuantityAdjuster: React.FC<QuantityAdjusterProps> = ({
       >
         <Ionicons
           name="remove"
-          size={20}
+          size={18}
           color={quantity <= minQuantity ? Colors.light.border : undefined}
         />
       </TouchableOpacity>
@@ -40,7 +40,7 @@ const QuantityAdjuster: React.FC<QuantityAdjusterProps> = ({
         style={[styles.button, styles.increaseButton]}
         testID="increaseButton"
       >
-        <Ionicons name="add" size={20} />
+        <Ionicons name="add" size={18} />
       </TouchableOpacity>
     </View>
   );
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   quantityText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
-    marginHorizontal: 20,
+    marginHorizontal: 15,
   },
 });

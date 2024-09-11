@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    margin: 15,
+    margin: 10,
     alignItems: "center",
   },
   leftContainer: {
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   product: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "400",
     color: Colors.light.productText,
     width: "50%",
