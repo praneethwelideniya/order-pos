@@ -6,5 +6,6 @@ export const Colors = {
     buttonText: "#FFFFFF",
     background: "#FFFFFF",
     border: "#CCCCCC",
+    quantityAdjusterBg: "#D7DCE1",
   },
 };
