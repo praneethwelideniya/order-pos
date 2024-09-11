@@ -10,7 +10,7 @@ interface QuantityAdjusterProps {
   minQuantity?: number;
 }
 
-export const QuantityAdjuster: React.FC<QuantityAdjusterProps> = ({
+const QuantityAdjuster: React.FC<QuantityAdjusterProps> = ({
   quantity,
   onIncrease,
   onDecrease,
@@ -45,6 +45,8 @@ export const QuantityAdjuster: React.FC<QuantityAdjusterProps> = ({
     </View>
   );
 };
+
+export default QuantityAdjuster;
 
 const styles = StyleSheet.create({
   container: {

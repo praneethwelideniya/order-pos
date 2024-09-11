@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { FC, memo } from "react";
-import { QuantityAdjuster } from "@/components/QuantityAdjuster";
+import QuantityAdjuster from "@/components/QuantityAdjuster";
 import PriceText from "@/components/PriceText";
 import { Product } from "@/types/Product";
 import { Currency } from "@/constants/Currency";

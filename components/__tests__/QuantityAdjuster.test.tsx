@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
-import { QuantityAdjuster } from "@/components/QuantityAdjuster";
+import QuantityAdjuster from "@/components/QuantityAdjuster";
 
 describe("QuantityAdjuster", () => {
   it("renders correctly with default props", () => {
