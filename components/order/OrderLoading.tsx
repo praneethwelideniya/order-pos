@@ -1,6 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { FC } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 interface OrderLodingProps {
   loading: boolean;
@@ -9,13 +9,7 @@ interface OrderLodingProps {
 
 const OrderLoding: FC<OrderLodingProps> = ({ loading, error }) => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <View style={styles.container}>
       {loading && (
         <ActivityIndicator
           size="large"
@@ -29,3 +23,11 @@ const OrderLoding: FC<OrderLodingProps> = ({ loading, error }) => {
 };
 
 export default OrderLoding;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
