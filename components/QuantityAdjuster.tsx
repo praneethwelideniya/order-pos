@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   quantityText: {
     fontSize: 16,
     fontWeight: "bold",
-    marginHorizontal: 15,
+    width: 40,
+    textAlign: "center",
   },
 });
