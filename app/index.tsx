@@ -53,6 +53,7 @@ export default function HomeScreen() {
         text: "OK",
         onPress: () => {
           refetch();
+          setOrderedItems({});
         },
       },
     ]);
