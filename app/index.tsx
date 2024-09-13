@@ -64,8 +64,8 @@ export default function HomeScreen() {
             ? sum.totalPrice + prod.quantity * parseFloat(product.price)
             : sum.totalPrice,
           discount: product
-            ? (prod.discount * parseFloat(product.price)) / 2
-            : 0,
+            ? sum.discount + (prod.discount * parseFloat(product.price)) / 2
+            : sum.discount,
         };
       },
       { totalPrice: 0, discount: 0 }
