@@ -6,13 +6,19 @@ import { Colors } from "@/constants/Colors";
 
 interface OrderTotalProps {
   total: number;
+  discount: number;
 }
 
-const OrderTotal: FC<OrderTotalProps> = ({ total }) => {
+const OrderTotal: FC<OrderTotalProps> = ({ total, discount }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.total}>Total</Text>
-      <PriceText currency={Currency.DOLLAR} price={total} size="medium" />
+      <PriceText
+        currency={Currency.DOLLAR}
+        price={total}
+        size="medium"
+        discountPrice={discount}
+      />
     </View>
   );
 };

@@ -8,20 +8,33 @@ import { Product } from "@/types/Product";
 import { useCallback, useMemo, useState } from "react";
 import { Alert, FlatList, StyleSheet, View } from "react-native";
 
+const discount = 0.5;
+const disCountLogic = "butTwoGetOneHalfPrice";
+
 export default function HomeScreen() {
   const { products, error, loading, refetch } = useProducts();
 
-  const [orderedItems, setOrderedItems] = useState<{ [key: number]: number }>(
-    {}
-  );
+  const [orderedItems, setOrderedItems] = useState<{
+    [key: number]: { quantity: number; discount: number };
+  }>({});
 
   const updateQuantity = useCallback((id: number, newQuantity: number) => {
+    let halfPriceLogic = 0;
+
+    // need to seperate to another function with discount logic
+    if (disCountLogic == "butTwoGetOneHalfPrice") {
+      halfPriceLogic = Math.floor(newQuantity / 3);
+    }
+
     setOrderedItems((prevItems) => {
       if (newQuantity === 0) {
         const { [id]: _, ...rest } = prevItems;
         return rest;
       }
-      return { ...prevItems, [id]: newQuantity };
+      return {
+        ...prevItems,
+        [id]: { quantity: newQuantity, discount: halfPriceLogic },
+      };
     });
   }, []);
 
@@ -29,7 +42,12 @@ export default function HomeScreen() {
     ({ item }: { item: Product }) => (
       <OrderItem
         item={item}
-        quantity={orderedItems[item.id] || 0}
+        quantity={orderedItems[item.id] ? orderedItems[item.id].quantity : 0}
+        discount={
+          orderedItems[item.id]
+            ? orderedItems[item.id].discount * parseFloat(item.price) * discount
+            : 0
+        }
         onUpdateQuantity={updateQuantity}
       />
     ),
@@ -37,10 +55,21 @@ export default function HomeScreen() {
   );
 
   const totalPrice = useMemo(() => {
-    return Object.entries(orderedItems).reduce((sum, [id, quantity]) => {
-      const product = products.find((p) => p.id === parseInt(id));
-      return product ? sum + quantity * parseFloat(product.price) : sum;
-    }, 0);
+    return Object.entries(orderedItems).reduce(
+      (sum, [id, prod]) => {
+        const product = products.find((p) => p.id === parseInt(id));
+
+        return {
+          totalPrice: product
+            ? sum.totalPrice + prod.quantity * parseFloat(product.price)
+            : sum.totalPrice,
+          discount: product
+            ? (prod.discount * parseFloat(product.price)) / 2
+            : 0,
+        };
+      },
+      { totalPrice: 0, discount: 0 }
+    );
   }, [orderedItems, products]);
 
   const resetOrder = () => {
@@ -73,7 +102,10 @@ export default function HomeScreen() {
         renderItem={renderItem}
         contentContainerStyle={styles.listContainer}
       />
-      <OrderTotal total={totalPrice} />
+      <OrderTotal
+        total={totalPrice.totalPrice}
+        discount={totalPrice.discount}
+      />
     </View>
   );
 }

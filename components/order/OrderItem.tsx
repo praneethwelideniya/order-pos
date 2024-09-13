@@ -10,10 +10,12 @@ interface OrderItemProps {
   item: Product;
   quantity: number;
   onUpdateQuantity: (id: number, value: number) => void;
+  discount: number;
 }
 
 const OrderItem: FC<OrderItemProps> = memo(
-  ({ item, quantity, onUpdateQuantity }) => {
+  ({ item, quantity, onUpdateQuantity, discount }) => {
+    //
     return (
       <View style={styles.container}>
         <View style={styles.leftContainer}>
@@ -28,7 +30,11 @@ const OrderItem: FC<OrderItemProps> = memo(
             }}
           />
         </View>
-        <PriceText currency={Currency.DOLLAR} price={parseFloat(item.price)} />
+        <PriceText
+          currency={Currency.DOLLAR}
+          price={parseFloat(item.price) * quantity}
+          discountPrice={discount}
+        />
       </View>
     );
   }
