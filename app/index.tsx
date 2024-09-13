@@ -18,7 +18,8 @@ export default function HomeScreen() {
     [key: number]: { quantity: number; discount: number };
   }>({});
 
-  const updateQuantity = useCallback((id: number, newQuantity: number) => {
+  const updateQuantity = useCallback((item: Product, newQuantity: number) => {
+    const { id, price } = item;
     let halfPriceLogic = 0;
 
     // need to seperate to another function with discount logic
@@ -33,7 +34,10 @@ export default function HomeScreen() {
       }
       return {
         ...prevItems,
-        [id]: { quantity: newQuantity, discount: halfPriceLogic },
+        [id]: {
+          quantity: newQuantity,
+          discount: halfPriceLogic * parseFloat(price) * discount,
+        },
       };
     });
   }, []);
@@ -43,11 +47,7 @@ export default function HomeScreen() {
       <OrderItem
         item={item}
         quantity={orderedItems[item.id] ? orderedItems[item.id].quantity : 0}
-        discount={
-          orderedItems[item.id]
-            ? orderedItems[item.id].discount * parseFloat(item.price) * discount
-            : 0
-        }
+        discount={orderedItems[item.id] ? orderedItems[item.id].discount : 0}
         onUpdateQuantity={updateQuantity}
       />
     ),
@@ -63,9 +63,7 @@ export default function HomeScreen() {
           totalPrice: product
             ? sum.totalPrice + prod.quantity * parseFloat(product.price)
             : sum.totalPrice,
-          discount: product
-            ? sum.discount + (prod.discount * parseFloat(product.price)) / 2
-            : sum.discount,
+          discount: product ? sum.discount + prod.discount : sum.discount,
         };
       },
       { totalPrice: 0, discount: 0 }

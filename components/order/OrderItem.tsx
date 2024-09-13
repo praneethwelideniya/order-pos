@@ -9,7 +9,7 @@ import { Colors } from "@/constants/Colors";
 interface OrderItemProps {
   item: Product;
   quantity: number;
-  onUpdateQuantity: (id: number, value: number) => void;
+  onUpdateQuantity: (item: Product, value: number) => void;
   discount: number;
 }
 
@@ -23,10 +23,10 @@ const OrderItem: FC<OrderItemProps> = memo(
           <QuantityAdjuster
             quantity={quantity}
             onIncrease={() => {
-              onUpdateQuantity(item.id, quantity + 1);
+              onUpdateQuantity(item, quantity + 1);
             }}
             onDecrease={() => {
-              onUpdateQuantity(item.id, quantity - 1);
+              onUpdateQuantity(item, quantity - 1);
             }}
           />
         </View>
